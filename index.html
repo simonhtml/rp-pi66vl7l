@@ -19,7 +19,7 @@ section{background:var(--card);border:1px solid var(--line);border-radius:18px;p
 button{font:inherit;cursor:pointer}
 .tab,.tool{padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:14px}
 .tab[aria-pressed="true"]{background:var(--acc);color:var(--accInk);border-color:var(--acc);font-weight:700}
-.tool[aria-pressed="true"]{border-color:var(--acc);font-weight:700}
+.tool[aria-pressed="true"]{background:var(--acc);color:var(--accInk);border-color:var(--acc);font-weight:700}.tab[aria-pressed="true"]::before,.tool[aria-pressed="true"]::before{content:"\2713  "}
 .tools{margin-left:auto;display:flex;gap:6px}
 .stage{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px}
 figure{margin:0;min-width:0}
@@ -52,15 +52,15 @@ function I(id,kind,x,y,w,d,h,col,o){o=o||{};return{id:id,kind:kind,x:x,y:y,w:w,d
 function bx(id,x,y,w,d,h,col,z,l){return I(id,'box',x,y,w,d,h,col,{z:z,l:l||'Boxes',st:'o'})}
 function dsk(x){return I('desk','desk',x,0,1.8,.75,.75,timber,{l:'Timber desk',st:'m'})}
 var OIL=function(x,y){return I('heater','box',x,y,.3,.25,.6,cream,{l:'Oil heater',st:'m'})};
-var DOCK=function(x,y){return I('dock','box',x,y,.3,.3,.1,white,{l:'Robot-vacuum dock'})};
+var DOCK=function(x,y){return I('dock','box',Math.min(x,2.3),y,.45,.5,.4,white,{l:'Roborock Qrevo dock'})};
 function mon1(x,y,z,f){return I('mon1','mon',x,y,.9,.25,.5,blk,{z:z,f:f||'s',l:'Ultrawide monitor',st:'m'})}
 function mon2(x,y,z,f){return I('mon2','mon',x,y,.3,.25,.55,blk,{z:z,f:f||'s',l:'Portrait monitor',st:'m'})}
 function chr(x,y,f){return I('chair','chair',x,y,.5,.5,.95,dkc,{f:f,l:'Office chair',st:'m'})}
 function stool(id,x,y,f){return I(id,'chair',x,y,.4,.4,.5,card,{f:f,p:15,s:'Kmart',l:'Stool'})}
 function lamp(id,x,y,z,p){return I(id,'lamp',x,y,.25,.25,.5,'#f3d9a0',{z:z,p:p||15,s:'Kmart',l:'Lamp'})}
 var rooms=[
-{id:'r1',name:'Simon study (new)',was:'storage today',dim:'2.8 x 3.7 m, rear left bedroom',W:2.8,D:3.7,win:[['y',1.0,1.4]],door:['x',2.95,.7],def:'o1',states:{
-cur:{t:'Current: storage',n:'Boxes down the left wall, robot-vacuum dock by the window.',items:[bx('bx1',0,.2,.6,.6,.5,card),bx('bx2',0,.85,.6,.6,.5,card),bx('bx3',0,1.5,.6,.6,.5,card),bx('bx4',0,2.15,.6,.6,.5,card),bx('bx5',.05,.25,.5,.5,.45,'#b99468',.5),bx('bx6',.05,.9,.5,.5,.45,'#b99468',.5),DOCK(2.45,.05)]},
+{id:'r1',name:'Simon study (new)',was:'storage today',dim:'2.8 x 3.7 m, rear left bedroom',W:2.8,D:3.7,win:[['y',1.0,1.4]],door:['x',2.95,.7],def:'cur',states:{
+cur:{t:'Current: storage',n:'Boxes down the left wall, Roborock Qrevo dock by the window.',items:[bx('bx1',0,.2,.6,.6,.5,card),bx('bx2',0,.85,.6,.6,.5,card),bx('bx3',0,1.5,.6,.6,.5,card),bx('bx4',0,2.15,.6,.6,.5,card),bx('bx5',.05,.25,.5,.5,.45,'#b99468',.5),bx('bx6',.05,.9,.5,.5,.45,'#b99468',.5),DOCK(2.45,.05)]},
 new:{t:'New: moved in, no purchases',n:'Boxes out. Desk, screens and heater from the old study go under the window.',items:[dsk(.55),chr(1.2,.9,'n'),mon1(.85,.15,.75),mon2(1.95,.15,.75),OIL(2.3,1.3),DOCK(2.45,.05)]},
 o1:{t:'Option 1: L-shape, two desks (recommended)',n:'Work desk under the window, hobby desk down the side wall. The hobby desk is never cleared. About $225 to buy.',items:[dsk(.65),chr(1.35,.9,'n'),mon1(.95,.15,.75),mon2(2.0,.15,.75),
 I('hdesk','desk',0,.8,.65,1.5,.75,ply,{p:100,s:'IKEA LINNMON',l:'Hobby desk (always on)'}),lamp('hlamp',.2,1.0,.75,20),I('tray','box',.1,1.55,.45,.45,.1,mustard,{z:.75,l:'Hobby project tray'}),I('cart','box',0,2.35,.5,.55,.6,teal,{p:60,s:'IKEA RASKOG',l:'Rolling drawer cart'}),stool('stool',.85,1.4,'w'),
@@ -75,7 +75,7 @@ o4:{t:'Option 4: desks either side, pouf nook',n:'Desks on both walls make a U w
 I('hdesk','desk',2.15,0,.65,1.8,.75,ply,{p:100,s:'IKEA LINNMON',l:'Hobby desk (always on)'}),I('tray','box',2.25,.6,.45,.45,.1,mustard,{z:.75,l:'Hobby project tray'}),lamp('hlamp',2.3,1.3,.75,20),stool('stool',1.65,.9,'e'),
 I('cart','box',0,1.6,.45,.6,.6,teal,{p:35,s:'Kmart',l:'Rolling cart'}),I('pouf','box',.5,2.3,.6,.6,.4,mustard,{p:40,s:'Kmart',l:'Pouf'}),OIL(2.3,2.5),DOCK(2.5,3.3)]}
 }},
-{id:'r2',name:'Guest room (new)',was:'Simon study today',dim:'3.9 x 3.7 m, rear right bedroom, built-in robe',W:3.9,D:3.7,win:[['y',1.3,1.3]],door:['x',2.9,.7],def:'o1',states:{
+{id:'r2',name:'Guest room (new)',was:'Simon study today',dim:'3.9 x 3.7 m, rear right bedroom, built-in robe',W:3.9,D:3.7,win:[['y',1.3,1.3]],door:['x',2.9,.7],def:'cur',states:{
 cur:{t:'Current: Simon study',n:'IKEA L-shape pullout, timber desk with two screens, heater, 3-drawer unit, soft toys in the robe.',items:[
 dsk(.9),chr(1.5,.9,'n'),mon1(1.2,.15,.75),mon2(2.2,.15,.75),I('drw','box',2.7,0,.5,.45,.8,white,{l:'3-drawer unit'}),I('robe','wardrobe',3.4,0,.5,.6,2.0,cream,{f:'s',l:'Built-in robe (soft toys)'}),
 I('cA','sofa',2.95,.95,.95,2.3,.85,grey,{f:'w',l:'IKEA L-shape pullout'}),I('cB','seat',2.0,2.3,.95,.95,.45,grey,{l:'IKEA L-shape pullout (chaise)'}),OIL(3.5,.65)]},
@@ -89,7 +89,7 @@ I('rug','box',1.0,.9,1.9,1.9,.02,'#d9a5a0',{p:60,s:'Kmart',l:'Rug'}),I('arm','so
 o4:{t:'Option 4: guest plus home-server cabinet',n:'Cabinet by the door holds the home server and Wi-Fi hub. Fold-down hot desk under the window. About $115 (cabinet and desk).',items:[I('drw','box',2.7,0,.5,.45,.8,white,{l:'3-drawer unit'}),I('robe','wardrobe',3.4,0,.5,.6,2.0,cream,{f:'s',l:'Built-in robe (soft toys)'}),I('cA','sofa',2.95,.95,.95,2.3,.85,grey,{f:'w',l:'IKEA L-shape pullout'}),I('cB','seat',2.0,2.3,.95,.95,.45,grey,{l:'IKEA L-shape pullout (chaise)'}),
 I('cab','box',0,.6,.45,1.0,1.0,white,{f:'e',p:70,s:'IKEA',l:'Cabinet for server + Wi-Fi hub'}),I('srv','rack',.08,.75,.3,.4,.3,blk,{z:1.0,f:'e',l:'Home server (own)'}),I('hot','desk',1.3,0,1.2,.6,.75,white,{p:45,s:'Kmart',l:'Folding hot desk'}),I('chair','chair',1.65,.75,.45,.45,.9,dkc,{f:'n',l:'Office chair',st:'m'})]}
 }},
-{id:'r3',name:'Man cave (new)',was:'guest room today',dim:'Garage 3.6 x 7.3 m, outbuilding (store and laundry beside it)',W:3.6,D:7.3,win:[['x',2.2,1.4]],door:['y',2.3,.9],def:'o1',states:{
+{id:'r3',name:'Man cave (new)',was:'guest room today',dim:'Garage 3.6 x 7.3 m, outbuilding (store and laundry beside it)',W:3.6,D:7.3,win:[['x',2.2,1.4]],door:['y',2.3,.9],def:'cur',states:{
 cur:{t:'Current: guest room',n:'Bed and bedsides at the back, round table with four chairs, kitchenette, plants.',items:[
 I('bed','bed',0,.9,2.0,1.6,.52,'#d7c4e3',{f:'w',l:'Guest bed + linen',st:'o'}),I('bs1','box',0,.4,.4,.45,.5,white,{l:'Bedside table',st:'o'}),I('bs2','box',0,2.55,.4,.45,.5,white,{l:'Bedside table',st:'o'}),
 I('tbl','box',1.2,4.3,1.0,1.0,.75,timber,{l:'Round table'}),I('c1','chair',1.45,3.8,.45,.45,.9,blk,{f:'s',l:'Black chair'}),I('c2','chair',1.45,5.35,.45,.45,.9,blk,{f:'n',l:'Black chair'}),I('c3','chair',.7,4.55,.45,.45,.9,blk,{f:'e',l:'Black chair'}),I('c4','chair',2.25,4.55,.45,.45,.9,blk,{f:'w',l:'Black chair'}),
@@ -115,7 +115,7 @@ I('wb','bench',3.0,4.7,.6,2.3,.9,ply,{p:120,s:'IKEA',l:'Workbench'}),I('peg','bo
 I('tbl','box',1.2,4.3,1.0,1.0,.75,timber,{l:'Round table'}),I('c1','chair',1.45,3.8,.45,.45,.9,blk,{f:'s',l:'Black chair'}),I('c2','chair',1.45,5.35,.45,.45,.9,blk,{f:'n',l:'Black chair'}),I('c3','chair',.7,4.55,.45,.45,.9,blk,{f:'e',l:'Black chair'}),I('c4','chair',2.25,4.55,.45,.45,.9,blk,{f:'w',l:'Black chair'}),
 I('kit','counter',0,5.8,.6,1.5,.9,white,{l:'Kitchenette'}),I('pl1','plant',3.1,1.0,.4,.4,1.0,green,{l:'Plant'}),I('pl2','plant',2.3,6.8,.4,.4,1.0,green,{l:'Plant'}),I('fan','box',3.0,3.3,.35,.35,1.0,white,{l:'Fan'})]}
 }},
-{id:'r4',name:'Nursery (new)',was:'storage today',dim:'3.3 x 3.0 m, carpeted bedroom, mirrored built-in robe',W:3.3,D:3.0,win:[['y',1.0,1.3]],door:['x',1.9,.9],def:'o1',states:{
+{id:'r4',name:'Nursery (new)',was:'storage today',dim:'3.3 x 3.0 m, carpeted bedroom, mirrored built-in robe',W:3.3,D:3.0,win:[['y',1.0,1.3]],door:['x',1.9,.9],def:'cur',states:{
 cur:{t:'Current: storage',n:'Stacked suitcases, wrapped gifts, books, bedding, a freestanding mirror and the mirrored wardrobe.',items:[
 I('war','wardrobe',2.2,0,1.1,.6,2.2,cream,{f:'s',l:'Mirrored wardrobe'}),I('sc1','box',0,.1,.55,.35,.7,blue,{l:'Suitcases',st:'o'}),I('sc2','box',.02,.1,.5,.3,.55,mustard,{z:.7,l:'Suitcases',st:'o'}),I('sc3','box',0,.55,.55,.35,.6,pink,{l:'Suitcases',st:'o'}),
 I('g1','box',.05,1.0,.5,.5,.45,red,{l:'Wrapped gifts',st:'o'}),I('g2','box',.12,1.07,.36,.36,.35,lav,{z:.45,l:'Wrapped gifts',st:'o'}),I('g3','box',1.0,2.3,.6,.5,.4,green,{l:'Wrapped gifts',st:'o'}),I('bk','box',2.6,2.3,.5,.5,.35,card,{l:'Books + boots',st:'o'}),
